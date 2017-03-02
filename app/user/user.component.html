@@ -1,0 +1,38 @@
+<div>
+    <h1>用户</h1>
+    <section *ngIf="!formFlag">
+        <button (click)="addClick()">添加</button>
+    </section>
+    <section *ngIf="formFlag" class="form-user">
+        <ul>
+            <li>
+                <label>用户名</label>
+                <input>
+            </li>
+            <li>
+                <label>密码</label>
+                <input type="password">
+            </li>
+            <li>
+                <label>确认密码</label>
+                <input type="password">
+            </li>
+            <li>
+                <label>创建人</label>
+                <input disabled value="superadmin">
+            </li>
+            <li>
+                <label>角色</label>
+                <input>
+            </li>
+            <li>
+                <label>描述</label>
+                <input>
+            </li>
+        </ul>
+        <footer>
+            <button (click)="saveClick()">保存</button>
+            <button (click)="cancelClick()">取消</button>
+        </footer>
+    </section>
+</div>

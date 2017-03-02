@@ -5,13 +5,31 @@ import { Component } from '@angular/core';
     template: `
   <h1>{{title}}</h1>
   <nav>
-    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-    <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
-    <a routerLink="/heroes-form" routerLinkActive="active">Heroes Form</a>
+    <a *ngFor="let module of modules" href="#" (click)="goModule(module)">
+    {{module}}
+    </a>
   </nav>
-  <router-outlet></router-outlet>
+  <dashboard *ngIf="current=='dashboard'"></dashboard>
+  <user *ngIf="current=='user'"></user>
+  <role *ngIf="current=='role'"></role>
 `,
 })
 export class AppComponent {
     title = 'MY TASK';
+
+    modules:string[];
+    current:string;
+
+    constructor(){
+        this.modules = [
+            'dashboard',
+            'user',
+            'role'
+        ]
+        this.current = this.modules[0];
+    }
+
+    goModule(module):void{
+        this.current = module;
+    }
 }

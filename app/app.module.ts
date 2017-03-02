@@ -7,21 +7,27 @@ import './rxjs-extensions';
 
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 
-import {AppRoutingModule } from "./app-routing.module";
+// import {AppRoutingModule } from "./app-routing.module";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {UserComponent} from "./user/user.component";
+import {RoleComponent} from "./role/role.component";
+import {RoleService} from "./role/role.service";
 @NgModule({
     imports:      [
         BrowserModule ,
         FormsModule,
         HttpModule,
-        AppRoutingModule
+        // AppRoutingModule
     ],
     declarations: [
         AppComponent ,
         DashboardComponent,
+        UserComponent,
+        RoleComponent,
     ],
     bootstrap:    [ AppComponent ],
     providers: [
+        RoleService
     ],
 
 })
