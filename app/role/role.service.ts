@@ -14,7 +14,10 @@ export class RoleService {
     getRoles(): Promise<Role[]> {
         return this.http.get(this.rolesUrl)
             .toPromise()
-            .then(response => response.json().data as Role[])
+            .then(function(response){
+                console.log(response.json());
+                return response.json() as Role[]
+            })
             .catch(this.handleError);
         // return Promise.resolve(HEROES);
     }

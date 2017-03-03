@@ -1,0 +1,22 @@
+db.users.insert({
+    name:"aaa",
+    hash_password:"aaa",
+    sex:1,
+    email:"aaa",
+    phone:"aaa",
+    address:{city:"aaa", street:"aaa"}
+});
+db.role.insert({
+    name:"superadmin",
+    text:"超级管理员"
+});
+db.role.insert({
+    name:"admin",
+    text:"管理员"
+});
+db.role.insert({
+    name:"user",
+    text:"普通用户"
+});
+
+new require("./../models").Role({name:"superadmin",text:"超级管理员"}).save(function(err,role){console.log(role});
