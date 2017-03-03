@@ -9,6 +9,7 @@ module.exports = function (app) {
     app.get('/', index.index);
     //user
     app.get('/user', user.list);
+    app.post('/user',user.create);
     //role
     app.get('/role',role.list);
 };

@@ -16,6 +16,7 @@ var dashboard_component_1 = require("./dashboard/dashboard.component");
 var user_component_1 = require("./user/user.component");
 var role_component_1 = require("./role/role.component");
 var role_service_1 = require("./role/role.service");
+var user_service_1 = require("./user/user.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,7 +37,8 @@ AppModule = __decorate([
         ],
         bootstrap: [app_component_1.AppComponent],
         providers: [
-            role_service_1.RoleService
+            role_service_1.RoleService,
+            user_service_1.UserService
         ],
     })
 ], AppModule);

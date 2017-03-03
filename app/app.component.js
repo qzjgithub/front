@@ -19,8 +19,14 @@ var AppComponent = (function () {
         ];
         this.current = this.modules[0];
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.setSessionUser();
+    };
     AppComponent.prototype.goModule = function (module) {
         this.current = module;
+    };
+    AppComponent.prototype.setSessionUser = function () {
+        window.sessionStorage.setItem('user', '{"_id":"58b8d5442f7c371239028617","name":"superadmin","password":"superadmin","create_time":"2017-03-03T02:30:28.136Z","create_user":"default","role":"58a50e00542edcf8954ca832","description":"system default user"}');
     };
     return AppComponent;
 }());

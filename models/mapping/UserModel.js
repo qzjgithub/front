@@ -25,4 +25,4 @@ function encryptPassword(password) {
     return crypto.createHash("md5").update(password).digest("base64");
 }*/
 
-mongoose.model('Users', schema);
+mongoose.model('User', schema);

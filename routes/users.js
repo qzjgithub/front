@@ -13,7 +13,7 @@ module.exports = router;
  * GET users listing.
  */
 
-var UsersModel = require("./../models").Users;
+var UsersModel = require("./../models").User;
 var path = require('path');
 
 exports.list = function (req, res) {
@@ -29,7 +29,9 @@ exports.list = function (req, res) {
 };
 
 exports.create = function (req, res) {
-  var createUser = new UsersModel(req.body);
+  console.log('就是adduser的: '+req.body);
+  res.json();
+  /*var createUser = new UsersModel(req.body);
   UsersModel.findOne({name:req.body.name}, function (err, user) {
     if (err)
       return res.json({err:err});
@@ -43,7 +45,7 @@ exports.create = function (req, res) {
       req.session["user"] = user;
       res.json();
     });
-  });
+  });*/
 };
 
 exports.login = function (req, res) {

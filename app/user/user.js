@@ -2,14 +2,17 @@
 /**
  * Created by a0027 on 2017/3/2.
  */
-var Hero = (function () {
-    function Hero(_id, name, power, alterEgo) {
+var User = (function () {
+    function User(_id, name, password, create_time, create_user, role, description) {
         this._id = _id;
         this.name = name;
-        this.power = power;
-        this.alterEgo = alterEgo;
+        this.password = password;
+        this.create_time = create_time;
+        this.create_user = create_user;
+        this.role = role;
+        this.description = description;
     }
-    return Hero;
+    return User;
 }());
-exports.Hero = Hero;
+exports.User = User;
 //# sourceMappingURL=user.js.map

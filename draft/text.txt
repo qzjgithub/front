@@ -20,3 +20,12 @@ db.role.insert({
 });
 
 new require("./../models").Role({name:"superadmin",text:"超级管理员"}).save(function(err,role){console.log(role});
+
+db.user.insert({
+    name:"superadmin",
+    password:"superadmin",
+    create_time:new Date(),
+    create_user:"default",
+    role:"58a50e00542edcf8954ca832",
+    description:"system default user"
+});
