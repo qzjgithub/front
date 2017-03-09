@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var config = require('../config');
 var fs = require('fs');
 // var log = require('./../libs/log');
-
+mongoose.Promise = global.Promise
 mongoose.connect(config.connectionstring);
 
 var db = mongoose.connection;

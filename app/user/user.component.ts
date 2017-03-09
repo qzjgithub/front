@@ -56,10 +56,10 @@ export class UserComponent implements OnInit{
 
     addUser(user:User): void{
         this.userService.create(user)
-            /*.then(user => {
+            .then(user => {
                 this.curUser = user;
                 this.getUsers();
-            })*/
+            })
     }
 
     addClick(): void{

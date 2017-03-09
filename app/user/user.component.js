@@ -44,11 +44,12 @@ var UserComponent = (function () {
         });
     };
     UserComponent.prototype.addUser = function (user) {
-        this.userService.create(user);
-        /*.then(user => {
-            this.curUser = user;
-            this.getUsers();
-        })*/
+        var _this = this;
+        this.userService.create(user)
+            .then(function (user) {
+            _this.curUser = user;
+            _this.getUsers();
+        });
     };
     UserComponent.prototype.addClick = function () {
         this.formFlag = true;

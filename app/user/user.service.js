@@ -17,7 +17,7 @@ require("rxjs/add/operator/toPromise");
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
-        this.usersUrl = '/users';
+        this.usersUrl = '/user';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     UserService.prototype.getUsers = function () {
@@ -34,7 +34,7 @@ var UserService = (function () {
         return this.http
             .post(this.usersUrl, JSON.stringify(user), { headers: this.headers })
             .toPromise()
-            .then(function (res) { return res; })
+            .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     UserService.prototype.handleError = function (error) {

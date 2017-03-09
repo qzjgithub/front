@@ -11,6 +11,7 @@ var users = require('./routes/users');*/
 
 var indexs = require('./routes/indexs');
 var user = require('./routes/user');
+var role = require('./routes/role');
 
 var app = express();
 
@@ -31,7 +32,8 @@ app.use(express.static(__dirname));
 // app.use(app.router);
 
 app.use('/', indexs);
-app.use('/users', user);
+app.use('/user', user);
+app.use('/role', role);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

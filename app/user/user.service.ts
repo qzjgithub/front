@@ -9,7 +9,7 @@ import {User} from "./user";
 @Injectable()
 export class UserService {
 
-    private usersUrl = '/users';
+    private usersUrl = '/user';
     private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private http: Http) { }
@@ -29,7 +29,7 @@ export class UserService {
         return this.http
             .post(this.usersUrl,JSON.stringify(user), {headers: this.headers})
             .toPromise()
-            .then(res => res)
+            .then(res => res.json())
             .catch(this.handleError);
     }
 

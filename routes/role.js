@@ -1,14 +1,19 @@
-/**
- * Created by a0027 on 2017/2/16.
- */
+var express = require('express');
+var router = express.Router();
+
 var RoleModel = require("./../models").Role;
 
-exports.list = function (req, res) {
+/* GET users listing. */
+router.get('/', function(req, res, next) {
     RoleModel.find(function(err,role){
-        if (err)
-            return res.json({err:err});
-        if (role) {
-            return res.json(role);
+        if (err){
+            res.json({err:err});
+        }else if (role) {
+            res.json(role);
         }
     });
-};
+    // next();
+});
+
+module.exports = router;
+
