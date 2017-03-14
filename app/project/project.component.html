@@ -1,0 +1,63 @@
+<div>
+    <h1>项目</h1>
+    <section *ngIf="!formFlag">
+        <button (click)="addClick()">添加</button>
+        <u>
+            <li *ngFor="let project of projects">
+                <span>{{project._id}}</span>
+                <span>{{project.name}}</span>
+                <span>{{project.create_time}}</span>
+                <span>{{project.create_user}}</span>
+                <span>{{project.principal}}</span>
+                <span>{{project.path}}</span>
+                <span>{{project.port}}</span>
+                <span>{{project.description}}</span>
+            </li>
+        </u>
+    </section>
+    <section *ngIf="formFlag">
+        <ul>
+            <li>
+                <label>项目名称</label>
+                <input required
+                       name="name"
+                       [(ngModel)]="curProject.name">
+            </li>
+            <li>
+                <label>创建人</label>
+                <input type="hidden"
+                       [(ngModel)]="curProject.create_user"
+                       name="create_user">
+                <input disabled value="superadmin">
+            </li>
+            <li>
+                <label>负责人</label>
+                <select [(ngModel)]="curProject.principal" name="principal">
+                    <option *ngFor="let user of users" [value]="user._id" [selected]="user._id==curProject.principal" >
+                        {{user.name}}
+                    </option>
+                </select>
+            </li>
+            <li>
+                <label>路径</label>
+                <input required
+                       name="path"
+                       [(ngModel)]="curProject.path">
+            </li>
+            <li>
+                <label>端口</label>
+                <input required
+                       name="port"
+                       [(ngModel)]="curProject.port">
+            </li>
+            <li>
+                <label>描述</label>
+                <textarea [(ngModel)]="curProject.description" name="description"></textarea>
+            </li>
+        </ul>
+        <footer>
+            <button (click)="saveClick()">保存</button>
+            <button (click)="cancelClick()">取消</button>
+        </footer>
+    </section>
+</div>

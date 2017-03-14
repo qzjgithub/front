@@ -13,11 +13,12 @@ var AppComponent = (function () {
     function AppComponent() {
         this.title = 'MY TASK';
         this.modules = [
-            'dashboard',
-            'user',
-            'role'
+            { value: 'dashboard', text: '主页' },
+            { value: 'user', text: '用户' },
+            { value: 'role', text: '角色' },
+            { value: 'project', text: '项目' }
         ];
-        this.current = this.modules[0];
+        this.current = this.modules[0]['value'];
     }
     AppComponent.prototype.ngOnInit = function () {
         this.setSessionUser();
@@ -34,7 +35,7 @@ AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         styleUrls: ['app/app.component.css'],
-        template: "\n  <h1>{{title}}</h1>\n  <nav>\n    <a *ngFor=\"let module of modules\" href=\"#\" (click)=\"goModule(module)\">\n    {{module}}\n    </a>\n  </nav>\n  <dashboard *ngIf=\"current=='dashboard'\"></dashboard>\n  <user *ngIf=\"current=='user'\"></user>\n  <role *ngIf=\"current=='role'\"></role>\n",
+        template: "\n  <h1>{{title}}</h1>\n  <nav>\n    <a *ngFor=\"let module of modules\" href=\"#\" (click)=\"goModule(module.value)\">\n    {{module.text}}\n    </a>\n  </nav>\n  <dashboard *ngIf=\"current=='dashboard'\"></dashboard>\n  <user *ngIf=\"current=='user'\"></user>\n  <role *ngIf=\"current=='role'\"></role>\n  <project *ngIf=\"current=='project'\"></project>\n",
     }),
     __metadata("design:paramtypes", [])
 ], AppComponent);

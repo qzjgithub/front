@@ -47,8 +47,13 @@ var UserComponent = (function () {
         var _this = this;
         this.userService.create(user)
             .then(function (user) {
-            _this.curUser = user;
-            _this.getUsers();
+            if (user['err']) {
+                _this.formFlag = true;
+            }
+            else {
+                _this.curUser = user;
+                _this.getUsers();
+            }
         });
     };
     UserComponent.prototype.addClick = function () {
@@ -59,7 +64,6 @@ var UserComponent = (function () {
         console.log(this.curUser);
         this.curUser.create_time = new Date();
         this.addUser(this.curUser);
-        this.formFlag = false;
     };
     UserComponent.prototype.cancelClick = function () {
         this.formFlag = false;

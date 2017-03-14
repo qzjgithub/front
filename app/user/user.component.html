@@ -41,7 +41,7 @@
             <li>
                 <label>角色</label>
                 <select [(ngModel)]="curUser.role" name="role">
-                    <option *ngFor="let role of roles" [value]="role._id">
+                    <option *ngFor="let role of roles" [value]="role._id" [selected]="role.name=='user'" >
                         {{role.text}}
                     </option>
                 </select>

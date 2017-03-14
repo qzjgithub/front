@@ -8,44 +8,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-/**
- * Created by a0027 on 2017/3/3.
- */
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
-var UserService = (function () {
-    function UserService(http) {
+var ProjectService = (function () {
+    function ProjectService(http) {
         this.http = http;
-        this.usersUrl = '/user';
+        this.projectUrl = '/project';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
-    UserService.prototype.getUsers = function () {
-        return this.http.get(this.usersUrl)
+    ProjectService.prototype.getProjects = function () {
+        return this.http.get(this.projectUrl)
             .toPromise()
-            .then(function (response) {
-            console.log(response.json());
-            return response.json();
-        })
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
-        // return Promise.resolve(HEROES);
     };
-    UserService.prototype.create = function (user) {
+    ProjectService.prototype.create = function (user) {
         return this.http
-            .post(this.usersUrl, JSON.stringify(user), { headers: this.headers })
+            .post(this.projectUrl, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    UserService.prototype.handleError = function (error) {
+    ProjectService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     };
-    return UserService;
+    return ProjectService;
 }());
-UserService = __decorate([
+ProjectService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], UserService);
-exports.UserService = UserService;
-//# sourceMappingURL=user.service.js.map
+], ProjectService);
+exports.ProjectService = ProjectService;
+//# sourceMappingURL=project.service.js.map

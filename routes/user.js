@@ -19,8 +19,6 @@ router.post('/', function (req, res) {
   console.log('就是adduser的: '+JSON.stringify(req.body));
   var u = req.body;
   delete u._id;
-  console.log(typeof u.create_time);
-  // u.create_time = new Date(u.create_time);
   var createUser = new UsersModel(req.body);
    UsersModel.findOne({name:req.body.name}, function (err, user) {
      if (err){

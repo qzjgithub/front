@@ -57,8 +57,12 @@ export class UserComponent implements OnInit{
     addUser(user:User): void{
         this.userService.create(user)
             .then(user => {
-                this.curUser = user;
-                this.getUsers();
+                if(user['err']){
+                    this.formFlag = true;
+                }else{
+                    this.curUser = user;
+                    this.getUsers();
+                }
             })
     }
 
@@ -71,7 +75,6 @@ export class UserComponent implements OnInit{
         console.log(this.curUser);
         this.curUser.create_time = new Date();
         this.addUser(this.curUser);
-        this.formFlag = false;
     }
 
     cancelClick():void{
