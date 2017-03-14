@@ -58,7 +58,7 @@ var UserComponent = (function () {
     };
     UserComponent.prototype.addClick = function () {
         this.formFlag = true;
-        this.curUser = new user_1.User('', 'test1', '111', new Date, this.logUser._id, '', 'test1');
+        this.curUser = new user_1.User('', 'test1', '111', new Date, this.logUser._id, '58a50e20542edcf8954ca834', 'test1');
     };
     UserComponent.prototype.saveClick = function () {
         console.log(this.curUser);

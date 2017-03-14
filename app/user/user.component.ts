@@ -68,7 +68,7 @@ export class UserComponent implements OnInit{
 
     addClick(): void{
         this.formFlag = true;
-        this.curUser = new User('','test1','111',new Date,this.logUser._id,'','test1');
+        this.curUser = new User('','test1','111',new Date,this.logUser._id,'58a50e20542edcf8954ca834','test1');
     }
 
     saveClick():void{

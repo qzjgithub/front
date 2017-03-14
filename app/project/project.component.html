@@ -33,7 +33,7 @@
             <li>
                 <label>负责人</label>
                 <select [(ngModel)]="curProject.principal" name="principal">
-                    <option *ngFor="let user of users" [value]="user._id" [selected]="user._id==curProject.principal" >
+                    <option *ngFor="let user of users" [value]="user._id" >
                         {{user.name}}
                     </option>
                 </select>
