@@ -15,6 +15,7 @@ import {RoleService} from "./role/role.service";
 import {UserService} from "./user/user.service";
 import {ProjectComponent} from "./project/project.component";
 import {ProjectService} from "./project/project.service";
+import {Data} from "./data";
 @NgModule({
     imports:      [
         BrowserModule ,
@@ -33,8 +34,11 @@ import {ProjectService} from "./project/project.service";
     providers: [
         RoleService,
         UserService,
-        ProjectService
+        ProjectService,
+        Data
     ],
 
 })
-export class AppModule { }
+export class AppModule {
+
+}

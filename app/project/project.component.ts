@@ -3,10 +3,12 @@ import {Project} from "./project";
 import {ProjectService} from "./project.service";
 import {UserService} from "../user/user.service";
 import {User} from "../user/user";
+import {Data} from "../data";
 @Component({
     selector: 'project',
     styleUrls: ['app/project/project.component.css'],
     templateUrl: 'app/project/project.component.html',
+    host:{}
 })
 
 export class ProjectComponent implements OnInit{
@@ -14,14 +16,13 @@ export class ProjectComponent implements OnInit{
     users:User[];
     curProject:Project;
     formFlag:boolean;
-    logUser:User;
 
     constructor(
         private projectService:ProjectService,
-        private userService:UserService
+        private userService:UserService,
+        private data:Data
     ){
         this.formFlag = false;
-        this.logUser = JSON.parse(window.sessionStorage.getItem('user')) as User;
     }
 
     ngOnInit(): void {
@@ -53,11 +54,10 @@ export class ProjectComponent implements OnInit{
 
     addClick(): void{
         this.formFlag = true;
-        this.curProject = new Project('','test1',new Date,this.logUser._id,this.logUser._id,'/test1','8080','');
+        this.curProject = new Project('','test1',new Date,this.data.logUser._id,this.data.logUser._id,'/test1','8080','');
     }
 
     saveClick():void{
-        console.log(this.curProject);
         this.curProject.create_time = new Date();
         this.addProject(this.curProject);
     }

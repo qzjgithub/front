@@ -3,6 +3,7 @@ import {RoleService} from "../role/role.service";
 import {Role} from "../role/role";
 import {UserService} from "./user.service";
 import {User} from "./user";
+import {Data} from "../data";
 
 @Component({
     selector: 'user',
@@ -11,47 +12,25 @@ import {User} from "./user";
 
 })
 export class UserComponent implements OnInit{
-    formFlag:Boolean;
-    roles:Role[];
     users:User[];
-    roleCol:Object;
-    userCol:Object;
-    logUser:User;
     curUser:User;
+    formFlag:Boolean;
+    modFlag:Boolean;
 
 
     ngOnInit(): void {
-        this.getRoles();
         this.getUsers();
     }
     constructor(
-        private roleService:RoleService,
-        private userService:UserService
+        private userService:UserService,
+        private data:Data
     ) {
         this.formFlag = false;
-        this.logUser = JSON.parse(window.sessionStorage.getItem('user')) as User;
-        this.roleCol = {};
-        this.userCol = {};
-    }
-
-    getRoles(){
-        var that = this;
-        this.roleService.getRoles().then(function(roles){
-            that.roles = roles;
-            that.roles.forEach(function(role){
-                that.roleCol[role._id] = role;
-            });
-        });
+        this.modFlag = false;
     }
 
     getUsers(){
-        var that = this;
-        this.userService.getUsers().then(function(users){
-            that.users = users;
-            that.users.forEach(function(user){
-                that.userCol[user._id] = user;
-            });
-        });
+        this.userService.getUsers().then(users => this.users = users);
     }
 
     addUser(user:User): void{
@@ -61,24 +40,73 @@ export class UserComponent implements OnInit{
                     this.formFlag = true;
                 }else{
                     this.curUser = user;
+                    this.data.getUsers();
                     this.getUsers();
+                    this.formFlag = false;
                 }
             })
     }
 
     addClick(): void{
         this.formFlag = true;
-        this.curUser = new User('','test1','111',new Date,this.logUser._id,'58a50e20542edcf8954ca834','test1');
+        this.curUser = new User('','test1','111',new Date,this.data.logUser._id,'58a50e20542edcf8954ca834','test1');
     }
 
     saveClick():void{
-        console.log(this.curUser);
         this.curUser.create_time = new Date();
-        this.addUser(this.curUser);
+        this.modFlag ? this.updateUser(this.curUser):this.addUser(this.curUser);
     }
 
     cancelClick():void{
         this.formFlag = false;
+        this.modFlag = false;
+    }
+
+    deleteUser(id):void{
+        this.userService.delete(id)
+            .then(user => {
+                if(user['err']){
+                    alert(user['err']);
+                }else{
+                    this.data.getUsers();
+                    this.getUsers();
+                    this.formFlag = false;
+                }
+            });
+    }
+
+    deleteClick(id):void{
+        this.deleteUser(id);
+    }
+
+    updateUser(user:User):void{
+        this.userService.update(user)
+            .then(user => {
+                if(user['err']){
+                    this.formFlag = true;
+                }else{
+                    this.curUser = user;
+                    this.data.getUsers();
+                    this.getUsers();
+                    this.formFlag = false;
+                    this.modFlag = false;
+                }
+            })
+    }
+
+    updateClick(user):void{
+        this.curUser = new User(
+            user._id,
+            user.name,
+            user.password,
+            user.create_time,
+            user.create_user,
+            user.role,
+            user.description
+        );
+        console.log(this.curUser);
+        this.formFlag = true;
+        this.modFlag = true;
     }
 }
 

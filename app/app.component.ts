@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Data} from "./data";
 @Component({
     selector: 'my-app',
     styleUrls: ['app/app.component.css'],
@@ -11,24 +12,25 @@ import {Component, OnInit} from '@angular/core';
   </nav>
   <dashboard *ngIf="current=='dashboard'"></dashboard>
   <user *ngIf="current=='user'"></user>
-  <role *ngIf="current=='role'"></role>
+  <!--<role *ngIf="current=='role'"></role>-->
   <project *ngIf="current=='project'"></project>
 `,
 })
 export class AppComponent implements OnInit{
     ngOnInit(): void {
         this.setSessionUser();
+        this.data.initData();
     }
     title = 'MY TASK';
 
     modules:Object[];
     current:string;
 
-    constructor(){
+    constructor(private data:Data){
         this.modules = [
             {value:'dashboard',text:'主页'},
             {value:'user',text:'用户'},
-            {value:'role',text:'角色'},
+            /*{value:'role',text:'角色'},*/
             {value:'project',text:'项目'}
         ];
         this.current = this.modules[0]['value'];

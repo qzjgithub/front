@@ -7,13 +7,15 @@
                 <span>{{user._id}}</span>
                 <span>{{user.name}}</span>
                 <span>{{user.create_time}}</span>
-                <span>{{user.create_user=='default'?'default':userCol[user.create_user].name}}</span>
-                <span>{{roleCol[user.role].text}}</span>
+                <span>{{user.create_user=='default'?'default':data.getValue('users',user.create_user,'name')}}</span>
+                <span>{{data.getValue('roles',user.role,'text')}}</span>
                 <span>{{user.description}}</span>
+                <a (click)="updateClick(user)">修改</a>
+                <a (click)="deleteClick(user._id)">删除</a>
             </li>
         </u>
     </section>
-    <section *ngIf="formFlag" class="form-user">
+    <section *ngIf="formFlag">
         <ul>
             <li>
                 <label>用户名</label>
@@ -36,12 +38,12 @@
                 <input type="hidden"
                        [(ngModel)]="curUser.create_user"
                        name="create_user">
-                <input disabled value="superadmin" [value]="userCol[curUser.create_user].name">
+                <input disabled value="superadmin" [value]="data.getValue('users',curUser.create_user,'name')">
             </li>
             <li>
                 <label>角色</label>
                 <select [(ngModel)]="curUser.role" name="role">
-                    <option *ngFor="let role of roles" [value]="role._id">
+                    <option *ngFor="let role of data.getData('roles')" [value]="role._id">
                         {{role.text}}
                     </option>
                 </select>

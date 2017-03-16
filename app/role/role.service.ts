@@ -15,7 +15,6 @@ export class RoleService {
         return this.http.get(this.rolesUrl)
             .toPromise()
             .then(function(response){
-                console.log(response.json());
                 return response.json() as Role[]
             })
             .catch(this.handleError);

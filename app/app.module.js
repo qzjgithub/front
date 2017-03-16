@@ -19,6 +19,7 @@ var role_service_1 = require("./role/role.service");
 var user_service_1 = require("./user/user.service");
 var project_component_1 = require("./project/project.component");
 var project_service_1 = require("./project/project.service");
+var data_1 = require("./data");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -42,7 +43,8 @@ AppModule = __decorate([
         providers: [
             role_service_1.RoleService,
             user_service_1.UserService,
-            project_service_1.ProjectService
+            project_service_1.ProjectService,
+            data_1.Data
         ],
     })
 ], AppModule);

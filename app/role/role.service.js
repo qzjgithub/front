@@ -21,7 +21,6 @@ var RoleService = (function () {
         return this.http.get(this.rolesUrl)
             .toPromise()
             .then(function (response) {
-            console.log(response.json());
             return response.json();
         })
             .catch(this.handleError);

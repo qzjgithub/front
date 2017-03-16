@@ -3,6 +3,10 @@ var router = express.Router();
 
 var UsersModel = require("./../models").User;
 
+router.param('id',function(req,res,next,id){
+  next();
+});
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   UsersModel.find(function(err,user){
@@ -16,7 +20,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function (req, res) {
-  console.log('就是adduser的: '+JSON.stringify(req.body));
   var u = req.body;
   delete u._id;
   var createUser = new UsersModel(req.body);
@@ -30,12 +33,37 @@ router.post('/', function (req, res) {
          if (err) {
            res.json({err:err});
          }
-         console.log(req.session);
-         // req.session["user"] = user;
          res.json(user);
        });
      }
    });
+});
+
+router.put('/', function (req, res) {
+    var u = req.body;
+    var updateUser = new UsersModel(req.body);
+    var options    = {upsert : true};
+    UsersModel.update({_id:updateUser._id},updateUser,options , function (err, user) {
+        if (err){
+          res.json({err:err});
+        } else if (user) {
+          res.json(user);
+        }else{
+          res.json({err:"不存在此用户！"});
+        }
+    });
+});
+
+router.delete('/:id', function(req, res){
+  console.log(req.params.id);
+  var id = req.params.id;
+  UsersModel.remove({_id:id},function(err,user){
+    if (err){
+      res.json({err:err});
+    } else if (user) {
+      res.json({msg:"删除成功！"});
+    }
+  });
 });
 
 module.exports = router;

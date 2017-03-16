@@ -24,15 +24,27 @@ var UserService = (function () {
         return this.http.get(this.usersUrl)
             .toPromise()
             .then(function (response) {
-            console.log(response.json());
             return response.json();
         })
             .catch(this.handleError);
-        // return Promise.resolve(HEROES);
     };
     UserService.prototype.create = function (user) {
         return this.http
             .post(this.usersUrl, JSON.stringify(user), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    UserService.prototype.update = function (user) {
+        return this.http
+            .put(this.usersUrl, JSON.stringify(user), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    UserService.prototype.delete = function (id) {
+        return this.http
+            .delete(this.usersUrl + '/' + id)
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);

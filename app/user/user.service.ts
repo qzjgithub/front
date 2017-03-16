@@ -18,16 +18,30 @@ export class UserService {
         return this.http.get(this.usersUrl)
             .toPromise()
             .then(function(response){
-                console.log(response.json());
                 return response.json() as User[]
             })
             .catch(this.handleError);
-        // return Promise.resolve(HEROES);
     }
 
     create(user: User) {
         return this.http
             .post(this.usersUrl,JSON.stringify(user), {headers: this.headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    update(user: User) {
+        return this.http
+            .put(this.usersUrl,JSON.stringify(user), {headers: this.headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    delete(id:string){
+        return this.http
+            .delete(this.usersUrl+'/'+id)
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

@@ -9,39 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var role_service_1 = require("../role/role.service");
 var user_service_1 = require("./user.service");
 var user_1 = require("./user");
+var data_1 = require("../data");
 var UserComponent = (function () {
-    function UserComponent(roleService, userService) {
-        this.roleService = roleService;
+    function UserComponent(userService, data) {
         this.userService = userService;
+        this.data = data;
         this.formFlag = false;
-        this.logUser = JSON.parse(window.sessionStorage.getItem('user'));
-        this.roleCol = {};
-        this.userCol = {};
+        this.modFlag = false;
     }
     UserComponent.prototype.ngOnInit = function () {
-        this.getRoles();
         this.getUsers();
     };
-    UserComponent.prototype.getRoles = function () {
-        var that = this;
-        this.roleService.getRoles().then(function (roles) {
-            that.roles = roles;
-            that.roles.forEach(function (role) {
-                that.roleCol[role._id] = role;
-            });
-        });
-    };
     UserComponent.prototype.getUsers = function () {
-        var that = this;
-        this.userService.getUsers().then(function (users) {
-            that.users = users;
-            that.users.forEach(function (user) {
-                that.userCol[user._id] = user;
-            });
-        });
+        var _this = this;
+        this.userService.getUsers().then(function (users) { return _this.users = users; });
     };
     UserComponent.prototype.addUser = function (user) {
         var _this = this;
@@ -52,21 +35,62 @@ var UserComponent = (function () {
             }
             else {
                 _this.curUser = user;
+                _this.data.getUsers();
                 _this.getUsers();
+                _this.formFlag = false;
             }
         });
     };
     UserComponent.prototype.addClick = function () {
         this.formFlag = true;
-        this.curUser = new user_1.User('', 'test1', '111', new Date, this.logUser._id, '58a50e20542edcf8954ca834', 'test1');
+        this.curUser = new user_1.User('', 'test1', '111', new Date, this.data.logUser._id, '58a50e20542edcf8954ca834', 'test1');
     };
     UserComponent.prototype.saveClick = function () {
-        console.log(this.curUser);
         this.curUser.create_time = new Date();
-        this.addUser(this.curUser);
+        this.modFlag ? this.updateUser(this.curUser) : this.addUser(this.curUser);
     };
     UserComponent.prototype.cancelClick = function () {
         this.formFlag = false;
+        this.modFlag = false;
+    };
+    UserComponent.prototype.deleteUser = function (id) {
+        var _this = this;
+        this.userService.delete(id)
+            .then(function (user) {
+            if (user['err']) {
+                alert(user['err']);
+            }
+            else {
+                _this.data.getUsers();
+                _this.getUsers();
+                _this.formFlag = false;
+            }
+        });
+    };
+    UserComponent.prototype.deleteClick = function (id) {
+        this.deleteUser(id);
+    };
+    UserComponent.prototype.updateUser = function (user) {
+        var _this = this;
+        this.userService.update(user)
+            .then(function (user) {
+            if (user['err']) {
+                _this.formFlag = true;
+            }
+            else {
+                _this.curUser = user;
+                _this.data.getUsers();
+                _this.getUsers();
+                _this.formFlag = false;
+                _this.modFlag = false;
+            }
+        });
+    };
+    UserComponent.prototype.updateClick = function (user) {
+        this.curUser = new user_1.User(user._id, user.name, user.password, user.create_time, user.create_user, user.role, user.description);
+        console.log(this.curUser);
+        this.formFlag = true;
+        this.modFlag = true;
     };
     return UserComponent;
 }());
@@ -76,8 +100,8 @@ UserComponent = __decorate([
         styleUrls: ['app/user/user.component.css'],
         templateUrl: 'app/user/user.component.html',
     }),
-    __metadata("design:paramtypes", [role_service_1.RoleService,
-        user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        data_1.Data])
 ], UserComponent);
 exports.UserComponent = UserComponent;
 //# sourceMappingURL=user.component.js.map

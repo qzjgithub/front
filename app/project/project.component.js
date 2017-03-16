@@ -12,12 +12,13 @@ var core_1 = require("@angular/core");
 var project_1 = require("./project");
 var project_service_1 = require("./project.service");
 var user_service_1 = require("../user/user.service");
+var data_1 = require("../data");
 var ProjectComponent = (function () {
-    function ProjectComponent(projectService, userService) {
+    function ProjectComponent(projectService, userService, data) {
         this.projectService = projectService;
         this.userService = userService;
+        this.data = data;
         this.formFlag = false;
-        this.logUser = JSON.parse(window.sessionStorage.getItem('user'));
     }
     ProjectComponent.prototype.ngOnInit = function () {
         this.getUsers();
@@ -48,10 +49,9 @@ var ProjectComponent = (function () {
     };
     ProjectComponent.prototype.addClick = function () {
         this.formFlag = true;
-        this.curProject = new project_1.Project('', 'test1', new Date, this.logUser._id, this.logUser._id, '/test1', '8080', '');
+        this.curProject = new project_1.Project('', 'test1', new Date, this.data.logUser._id, this.data.logUser._id, '/test1', '8080', '');
     };
     ProjectComponent.prototype.saveClick = function () {
-        console.log(this.curProject);
         this.curProject.create_time = new Date();
         this.addProject(this.curProject);
     };
@@ -65,9 +65,11 @@ ProjectComponent = __decorate([
         selector: 'project',
         styleUrls: ['app/project/project.component.css'],
         templateUrl: 'app/project/project.component.html',
+        host: {}
     }),
     __metadata("design:paramtypes", [project_service_1.ProjectService,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        data_1.Data])
 ], ProjectComponent);
 exports.ProjectComponent = ProjectComponent;
 //# sourceMappingURL=project.component.js.map
