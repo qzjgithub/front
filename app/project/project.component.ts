@@ -16,6 +16,7 @@ export class ProjectComponent implements OnInit{
     users:User[];
     curProject:Project;
     formFlag:boolean;
+    modFlag:boolean;
 
     constructor(
         private projectService:ProjectService,
@@ -23,9 +24,11 @@ export class ProjectComponent implements OnInit{
         private data:Data
     ){
         this.formFlag = false;
+        this.modFlag = false;
     }
 
     ngOnInit(): void {
+        this.data.getProjects();
         this.getUsers();
         this.getProjects();
     }
@@ -58,12 +61,64 @@ export class ProjectComponent implements OnInit{
     }
 
     saveClick():void{
-        this.curProject.create_time = new Date();
-        this.addProject(this.curProject);
+        !this.modFlag && (this.curProject.create_time = new Date());
+        this.modFlag? this.updateProject(this.curProject) : this.addProject(this.curProject);
     }
 
     cancelClick():void{
         this.formFlag = false;
+        this.modFlag = false;
+    }
+
+    updateProject(project:Project):void{
+        this.projectService.update(project)
+            .then(project => {
+                console.log(project);
+                if(project['err']){
+                    this.formFlag = true;
+                }else{
+                    this.curProject = project;
+                    this.getProjects();
+                    this.formFlag = false;
+                    this.modFlag = false;
+                }
+            })
+    }
+
+    updateClick(project):void{
+        this.curProject = new Project(
+            project._id,
+            project.name,
+            project.create_time,
+            project.create_user,
+            project.principal,
+            project.path,
+            project.port,
+            project.description
+        );
+        this.formFlag = true;
+        this.modFlag = true;
+    }
+
+    deleteProject(id):void{
+        this.projectService.delete(id)
+            .then(project => {
+                if(project['err']){
+                    alert(project['err']);
+                }else{
+                    this.getProjects();
+                    this.formFlag = false;
+                }
+            });
+    }
+
+    deleteClick(id):void{
+        this.deleteProject(id);
+    }
+
+    detailClick(project):void{
+        this.data.current = "module";
+        this.data.curProject = project;
     }
 }
 

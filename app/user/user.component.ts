@@ -53,7 +53,7 @@ export class UserComponent implements OnInit{
     }
 
     saveClick():void{
-        this.curUser.create_time = new Date();
+        !this.modFlag &&　(this.curUser.create_time = new Date());
         this.modFlag ? this.updateUser(this.curUser):this.addUser(this.curUser);
     }
 
@@ -104,7 +104,6 @@ export class UserComponent implements OnInit{
             user.role,
             user.description
         );
-        console.log(this.curUser);
         this.formFlag = true;
         this.modFlag = true;
     }

@@ -1,8 +1,17 @@
 <div>
     <h1>用户</h1>
-    <section *ngIf="!formFlag">
+    <section *ngIf="!formFlag" class="form">
         <button (click)="addClick()">添加</button>
-        <u>
+        <ul>
+            <li>
+                <span>ID</span>
+                <span>用户名</span>
+                <span>创建时间</span>
+                <span>创建人</span>
+                <span>角色</span>
+                <span>描述</span>
+                <span>操作</span>
+            </li>
             <li *ngFor="let user of users">
                 <span>{{user._id}}</span>
                 <span>{{user.name}}</span>
@@ -10,10 +19,10 @@
                 <span>{{user.create_user=='default'?'default':data.getValue('users',user.create_user,'name')}}</span>
                 <span>{{data.getValue('roles',user.role,'text')}}</span>
                 <span>{{user.description}}</span>
-                <a (click)="updateClick(user)">修改</a>
-                <a (click)="deleteClick(user._id)">删除</a>
+                <a *ngIf="data.getValue('roles',user.role,'name')!='superadmin'" (click)="updateClick(user)">修改</a>
+                <a *ngIf="data.getValue('roles',user.role,'name')!='superadmin'" (click)="deleteClick(user._id)">删除</a>
             </li>
-        </u>
+        </ul>
     </section>
     <section *ngIf="formFlag">
         <ul>

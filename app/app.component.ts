@@ -6,14 +6,15 @@ import {Data} from "./data";
     template: `
   <h1>{{title}}</h1>
   <nav>
-    <a *ngFor="let module of modules" href="#" (click)="goModule(module.value)">
+    <a *ngFor="let module of data.modules" href="#" (click)="goModule(module.value)">
     {{module.text}}
     </a>
   </nav>
-  <dashboard *ngIf="current=='dashboard'"></dashboard>
-  <user *ngIf="current=='user'"></user>
+  <dashboard *ngIf="data.current=='dashboard'"></dashboard>
+  <user *ngIf="data.current=='user'"></user>
   <!--<role *ngIf="current=='role'"></role>-->
-  <project *ngIf="current=='project'"></project>
+  <project *ngIf="data.current=='project'"></project>
+  <module *ngIf="data.current=='module'"></module>
 `,
 })
 export class AppComponent implements OnInit{
@@ -23,21 +24,11 @@ export class AppComponent implements OnInit{
     }
     title = 'MY TASK';
 
-    modules:Object[];
-    current:string;
-
     constructor(private data:Data){
-        this.modules = [
-            {value:'dashboard',text:'主页'},
-            {value:'user',text:'用户'},
-            /*{value:'role',text:'角色'},*/
-            {value:'project',text:'项目'}
-        ];
-        this.current = this.modules[0]['value'];
     }
 
     goModule(module):void{
-        this.current = module;
+        this.data.current = module;
     }
 
     setSessionUser(){

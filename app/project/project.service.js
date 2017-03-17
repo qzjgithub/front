@@ -23,9 +23,23 @@ var ProjectService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    ProjectService.prototype.create = function (user) {
+    ProjectService.prototype.create = function (project) {
         return this.http
-            .post(this.projectUrl, JSON.stringify(user), { headers: this.headers })
+            .post(this.projectUrl, JSON.stringify(project), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    ProjectService.prototype.update = function (project) {
+        return this.http
+            .put(this.projectUrl, JSON.stringify(project), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    ProjectService.prototype.delete = function (id) {
+        return this.http
+            .delete(this.projectUrl + '/' + id)
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);

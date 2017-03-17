@@ -55,7 +55,6 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/:id', function(req, res){
-  console.log(req.params.id);
   var id = req.params.id;
   UsersModel.remove({_id:id},function(err,user){
     if (err){

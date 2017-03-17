@@ -1,19 +1,32 @@
 <div>
     <h1>项目</h1>
-    <section *ngIf="!formFlag">
+    <section *ngIf="!formFlag" class="form">
         <button (click)="addClick()">添加</button>
-        <u>
+        <ul>
+            <li>
+                <span>ID</span>
+                <span>项目名</span>
+                <span>创建时间</span>
+                <span>创建人</span>
+                <span>负责人</span>
+                <span>路径</span>
+                <span>端口</span>
+                <span>描述</span>
+                <span>操作</span>
+            </li>
             <li *ngFor="let project of projects">
                 <span>{{project._id}}</span>
-                <span>{{project.name}}</span>
+                <span (click)="detailClick(project)" class="link">{{project.name}}</span>
                 <span>{{project.create_time}}</span>
                 <span>{{data.getValue('users',project.create_user,'name')}}</span>
                 <span>{{data.getValue('users',project.principal,'name')}}</span>
                 <span>{{project.path}}</span>
                 <span>{{project.port}}</span>
                 <span>{{project.description}}</span>
+                <a (click)="updateClick(project)">修改</a>
+                <a (click)="deleteClick(project._id)">删除</a>
             </li>
-        </u>
+        </ul>
     </section>
     <section *ngIf="formFlag">
         <ul>

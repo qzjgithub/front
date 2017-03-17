@@ -20,6 +20,8 @@ var user_service_1 = require("./user/user.service");
 var project_component_1 = require("./project/project.component");
 var project_service_1 = require("./project/project.service");
 var data_1 = require("./data");
+var module_component_1 = require("./module/module.component");
+var module_service_1 = require("./module/module.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -37,13 +39,15 @@ AppModule = __decorate([
             dashboard_component_1.DashboardComponent,
             user_component_1.UserComponent,
             role_component_1.RoleComponent,
-            project_component_1.ProjectComponent
+            project_component_1.ProjectComponent,
+            module_component_1.ModuleComponent
         ],
         bootstrap: [app_component_1.AppComponent],
         providers: [
             role_service_1.RoleService,
             user_service_1.UserService,
             project_service_1.ProjectService,
+            module_service_1.ModuleService,
             data_1.Data
         ],
     })

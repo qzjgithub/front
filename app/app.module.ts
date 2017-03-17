@@ -16,6 +16,8 @@ import {UserService} from "./user/user.service";
 import {ProjectComponent} from "./project/project.component";
 import {ProjectService} from "./project/project.service";
 import {Data} from "./data";
+import {ModuleComponent} from "./module/module.component";
+import {ModuleService} from "./module/module.service";
 @NgModule({
     imports:      [
         BrowserModule ,
@@ -28,13 +30,15 @@ import {Data} from "./data";
         DashboardComponent,
         UserComponent,
         RoleComponent,
-        ProjectComponent
+        ProjectComponent,
+        ModuleComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [
         RoleService,
         UserService,
         ProjectService,
+        ModuleService,
         Data
     ],
 

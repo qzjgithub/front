@@ -1,32 +1,32 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
-import {Project} from './project';
+import {Module} from './module';
 @Injectable()
-export class ProjectService{
-    private projectUrl = '/project';
+export class ModuleService{
+    private moduleUrl = '/modul';
     private headers = new Headers({'Content-Type':'application/json'});
 
     constructor(private http: Http){}
 
-    getProjects():Promise<Project[]>{
-        return this.http.get(this.projectUrl)
+    getModulesByProjectId(id:string):Promise<Module[]>{
+        return this.http.get(this.moduleUrl+'/'+id)
             .toPromise()
-            .then(response => response.json() as Project[])
+            .then(response => response.json() as Module[])
             .catch (this.handleError);
     }
 
-    create( project: Project) {
+    create( module: Module) {
         return this.http
-            .post(this.projectUrl,JSON.stringify( project), {headers: this.headers})
+            .post(this.moduleUrl,JSON.stringify( module), {headers: this.headers})
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
     }
 
-    update( project: Project) {
+    update( module: Module) {
         return this.http
-            .put(this.projectUrl,JSON.stringify( project), {headers: this.headers})
+            .put(this.moduleUrl,JSON.stringify( module), {headers: this.headers})
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
@@ -34,7 +34,7 @@ export class ProjectService{
 
     delete(id:string){
         return this.http
-            .delete(this.projectUrl+'/'+id)
+            .delete(this.moduleUrl+'/'+id)
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

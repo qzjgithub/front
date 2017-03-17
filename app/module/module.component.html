@@ -1,0 +1,93 @@
+<div>
+    <h1><a (click)="data.current='project'"><</a>{{data.curProject.name}}</h1>
+    <dl>
+        <dt>ID</dt>
+        <dd>{{data.curProject._id}}</dd>
+        <dt>项目名</dt>
+        <dd>{{data.curProject.name}}</dd>
+        <dt>创建时间</dt>
+        <dd>{{data.curProject.create_time}}</dd>
+        <dt>创建人</dt>
+        <dd>{{data.getValue('users',data.curProject.create_user,'name')}}</dd>
+        <dt>负责人</dt>
+        <dd>{{data.getValue('users',data.curProject.principal,'name')}}</dd>
+        <dt>路径</dt>
+        <dd>{{data.curProject.path}}</dd>
+        <dt>端口</dt>
+        <dd>{{data.curProject.port}}</dd>
+        <dt>描述</dt>
+        <dd>{{data.curProject.description}}</dd>
+    </dl>
+    <section *ngIf="!formFlag" class="form">
+        <button (click)="addClick()">添加</button>
+        <ul>
+            <li>
+                <span>ID</span>
+                <span>模块名称</span>
+                <span>创建时间</span>
+                <span>创建人</span>
+                <span>负责人</span>
+                <span>路径</span>
+                <span>描述</span>
+                <span>操作</span>
+            </li>
+            <li *ngFor="let module of modules">
+                <span>{{module._id}}</span>
+                <span>{{module.name}}</span>
+                <span>{{module.create_time}}</span>
+                <span>{{data.getValue('users',module.create_user,'name')}}</span>
+                <span>{{data.getValue('users',module.principal,'name')}}</span>
+                <span>{{module.path}}</span>
+                <span>{{module.description}}</span>
+                <a (click)="updateClick(module)">修改</a>
+                <a (click)="deleteClick(module._id)">删除</a>
+            </li>
+        </ul>
+    </section>
+    <section *ngIf="formFlag">
+        <ul>
+            <li>
+                <label>所属项目</label>
+                <input required
+                       name="project"
+                       [(ngModel)]="curModule.project" type="hidden">
+                <input [value]="data.getValue('projects',curModule.project,'name')" disabled>
+            </li>
+            <li>
+                <label>模块名称</label>
+                <input required
+                       name="name"
+                       [(ngModel)]="curModule.name">
+            </li>
+            <li>
+                <label>创建人</label>
+                <input type="hidden"
+                       [(ngModel)]="curModule.create_user"
+                       name="create_user">
+                <input disabled [value]="data.getValue('users',curModule.create_user,'name')">
+            </li>
+            <li>
+                <label>负责人</label>
+                <select [(ngModel)]="curModule.principal" name="principal">
+                    <option *ngFor="let user of data.getData('users')" [value]="user._id">
+                        {{user.name}}
+                    </option>
+                </select>
+            </li>
+            <li>
+                <label>路径</label>
+                <input required
+                       name="path"
+                       [(ngModel)]="curModule.path">
+            </li>
+            <li>
+                <label>描述</label>
+                <textarea [(ngModel)]="curModule.description" name="description"></textarea>
+            </li>
+        </ul>
+        <footer>
+            <button (click)="saveClick()">保存</button>
+            <button (click)="cancelClick()">取消</button>
+        </footer>
+    </section>
+</div>

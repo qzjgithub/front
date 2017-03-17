@@ -19,8 +19,10 @@ var ProjectComponent = (function () {
         this.userService = userService;
         this.data = data;
         this.formFlag = false;
+        this.modFlag = false;
     }
     ProjectComponent.prototype.ngOnInit = function () {
+        this.data.getProjects();
         this.getUsers();
         this.getProjects();
     };
@@ -52,11 +54,53 @@ var ProjectComponent = (function () {
         this.curProject = new project_1.Project('', 'test1', new Date, this.data.logUser._id, this.data.logUser._id, '/test1', '8080', '');
     };
     ProjectComponent.prototype.saveClick = function () {
-        this.curProject.create_time = new Date();
-        this.addProject(this.curProject);
+        !this.modFlag && (this.curProject.create_time = new Date());
+        this.modFlag ? this.updateProject(this.curProject) : this.addProject(this.curProject);
     };
     ProjectComponent.prototype.cancelClick = function () {
         this.formFlag = false;
+        this.modFlag = false;
+    };
+    ProjectComponent.prototype.updateProject = function (project) {
+        var _this = this;
+        this.projectService.update(project)
+            .then(function (project) {
+            console.log(project);
+            if (project['err']) {
+                _this.formFlag = true;
+            }
+            else {
+                _this.curProject = project;
+                _this.getProjects();
+                _this.formFlag = false;
+                _this.modFlag = false;
+            }
+        });
+    };
+    ProjectComponent.prototype.updateClick = function (project) {
+        this.curProject = new project_1.Project(project._id, project.name, project.create_time, project.create_user, project.principal, project.path, project.port, project.description);
+        this.formFlag = true;
+        this.modFlag = true;
+    };
+    ProjectComponent.prototype.deleteProject = function (id) {
+        var _this = this;
+        this.projectService.delete(id)
+            .then(function (project) {
+            if (project['err']) {
+                alert(project['err']);
+            }
+            else {
+                _this.getProjects();
+                _this.formFlag = false;
+            }
+        });
+    };
+    ProjectComponent.prototype.deleteClick = function (id) {
+        this.deleteProject(id);
+    };
+    ProjectComponent.prototype.detailClick = function (project) {
+        this.data.current = "module";
+        this.data.curProject = project;
     };
     return ProjectComponent;
 }());

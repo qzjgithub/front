@@ -46,7 +46,7 @@ var UserComponent = (function () {
         this.curUser = new user_1.User('', 'test1', '111', new Date, this.data.logUser._id, '58a50e20542edcf8954ca834', 'test1');
     };
     UserComponent.prototype.saveClick = function () {
-        this.curUser.create_time = new Date();
+        !this.modFlag && (this.curUser.create_time = new Date());
         this.modFlag ? this.updateUser(this.curUser) : this.addUser(this.curUser);
     };
     UserComponent.prototype.cancelClick = function () {
@@ -88,7 +88,6 @@ var UserComponent = (function () {
     };
     UserComponent.prototype.updateClick = function (user) {
         this.curUser = new user_1.User(user._id, user.name, user.password, user.create_time, user.create_user, user.role, user.description);
-        console.log(this.curUser);
         this.formFlag = true;
         this.modFlag = true;
     };
