@@ -40,6 +40,40 @@ export class Data{
         this.curProject = new Project('','',new Date(),'','','','','');
     }
 
+    setUserById(id):Promise<User>{
+        var u = this.users.get(id);
+        if(id=='default'||u){
+            return new Promise<User>(resolve => resolve.call(this)).then(() => u);
+        }else{
+            return this.userService.getUserById(id)
+                .then(u => {
+                    this.setUser(u);
+                    return u;
+                });
+        }
+    }
+
+    setUser(user):void{
+        this.users.set(user._id,user);
+    }
+
+    setProjectById(id):Promise<Project>{
+        var u = this.projects.get(id);
+        if(u){
+            return new Promise<Project>(resolve => resolve.call(this)).then(() => u);
+        }else{
+            return this.projectService.getProjectById(id)
+                .then(u => {
+                    this.setProject(u);
+                    return u;
+                });
+        }
+    }
+
+    setProject(project):void{
+        this.projects.set(project._id,project);
+    }
+
     getRoles(){
         this.roleService.getRoles().then(datas =>{
             datas.forEach(data => this.roles.set(data._id,data));
@@ -60,7 +94,7 @@ export class Data{
 
     initData(){
         this.getRoles();
-        this.getUsers();
+        // this.getUsers();
     }
 
     getValue(datas,key,name){

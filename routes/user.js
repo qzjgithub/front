@@ -19,6 +19,17 @@ router.get('/', function(req, res, next) {
   // next();
 });
 
+router.get('/:id',function(req, res, next){
+    var id = req.params.id;
+    UsersModel.findOne({_id:id},function(err,user){
+        if(err){
+            res.json({err:err});
+        }else if(user){
+            res.json(user);
+        }
+    })
+});
+
 router.post('/', function (req, res) {
   var u = req.body;
   delete u._id;

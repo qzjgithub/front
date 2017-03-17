@@ -23,6 +23,15 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    getUserById(id):Promise<User> {
+        return this.http.get(this.usersUrl+'/'+id)
+        .toPromise()
+        .then(function(response){
+            return response.json() as User
+        })
+        .catch(this.handleError);
+    }
+
     create(user: User) {
         return this.http
             .post(this.usersUrl,JSON.stringify(user), {headers: this.headers})

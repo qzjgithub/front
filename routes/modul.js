@@ -12,7 +12,7 @@ router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
     var createModul = new ModulModel(req.body);
-    ModulModel.findOne({name:u.name,project:u.project}, function (err, modul) {
+    ModulModel.findOne({name:u.name,modul:u.modul}, function (err, modul) {
         if (err){
             res.json({err:err});
         } else if (modul) {
@@ -39,6 +39,32 @@ router.get('/:id', function(req, res, next) {
         }
     });
     // next();
+});
+
+router.put('/', function (req, res) {
+    var u = req.body;
+    var updateModul = new ModulModel(req.body);
+    var options    = {upsert : true};
+    ModulModel.update({_id:updateModul._id},updateModul,options , function (err, modul) {
+        if (err){
+            res.json({err:err});
+        } else if (modul) {
+            res.json(modul);
+        }else{
+            res.json({err:"不存在此用户！"});
+        }
+    });
+});
+
+router.delete('/:id', function(req, res){
+    var id = req.params.id;
+    ModulModel.remove({_id:id},function(err,modul){
+        if (err){
+            res.json({err:err});
+        } else if (modul) {
+            res.json({msg:"删除成功！"});
+        }
+    });
 });
 
 module.exports = router;

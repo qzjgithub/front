@@ -16,6 +16,15 @@ export class ProjectService{
             .catch (this.handleError);
     }
 
+    getProjectById(id):Promise<Project> {
+        return this.http.get(this.projectUrl+'/'+id)
+            .toPromise()
+            .then(function(response){
+                return response.json() as Project
+            })
+            .catch(this.handleError);
+    }
+
     create( project: Project) {
         return this.http
             .post(this.projectUrl,JSON.stringify( project), {headers: this.headers})

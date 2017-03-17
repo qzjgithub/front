@@ -23,6 +23,14 @@ var ProjectService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    ProjectService.prototype.getProjectById = function (id) {
+        return this.http.get(this.projectUrl + '/' + id)
+            .toPromise()
+            .then(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
     ProjectService.prototype.create = function (project) {
         return this.http
             .post(this.projectUrl, JSON.stringify(project), { headers: this.headers })

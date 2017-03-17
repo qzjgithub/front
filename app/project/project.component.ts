@@ -28,13 +28,23 @@ export class ProjectComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.data.getProjects();
         this.getUsers();
         this.getProjects();
     }
 
     getProjects(){
-        this.projectService.getProjects().then(projects => this.projects = projects);
+        this.projectService.getProjects().then(projects => {
+            this.projects = []
+            projects.forEach(project => {
+                this.data.setUserById(project.create_user)
+                    .then(u => {
+                        this.data.setUserById(project.principal)
+                            .then(u => {
+                                this.projects.push(project);
+                            });
+                    });
+            });
+        });
     }
 
     getUsers(){
@@ -119,6 +129,7 @@ export class ProjectComponent implements OnInit{
     detailClick(project):void{
         this.data.current = "module";
         this.data.curProject = project;
+        this.data.setProject(this.data.curProject);
     }
 }
 

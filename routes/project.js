@@ -16,6 +16,17 @@ router.get('/', function(req, res, next){
     });
 });
 
+router.get('/:id',function(req, res, next){
+    var id = req.params.id;
+    ProjectsModel.findOne({_id:id},function(err,project){
+        if(err){
+            res.json({err:err});
+        }else if(project){
+            res.json(project);
+        }
+    })
+});
+
 router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;

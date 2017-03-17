@@ -28,6 +28,14 @@ var UserService = (function () {
         })
             .catch(this.handleError);
     };
+    UserService.prototype.getUserById = function (id) {
+        return this.http.get(this.usersUrl + '/' + id)
+            .toPromise()
+            .then(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
     UserService.prototype.create = function (user) {
         return this.http
             .post(this.usersUrl, JSON.stringify(user), { headers: this.headers })

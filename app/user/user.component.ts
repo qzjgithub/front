@@ -19,7 +19,9 @@ export class UserComponent implements OnInit{
 
 
     ngOnInit(): void {
+        this.users = [];
         this.getUsers();
+        console.log(this.users);
     }
     constructor(
         private userService:UserService,
@@ -30,7 +32,15 @@ export class UserComponent implements OnInit{
     }
 
     getUsers(){
-        this.userService.getUsers().then(users => this.users = users);
+        this.userService.getUsers().then(users => {
+            this.users = [];
+            users.forEach(user => {
+                this.data.setUserById(user.create_user)
+                    .then(u => {
+                        this.users.push(user);
+                    });
+            });
+        });
     }
 
     addUser(user:User): void{
@@ -40,7 +50,6 @@ export class UserComponent implements OnInit{
                     this.formFlag = true;
                 }else{
                     this.curUser = user;
-                    this.data.getUsers();
                     this.getUsers();
                     this.formFlag = false;
                 }
@@ -68,7 +77,9 @@ export class UserComponent implements OnInit{
                 if(user['err']){
                     alert(user['err']);
                 }else{
-                    this.data.getUsers();
+                    if(this.data.getColumn('users',id)){
+                        this.data.users.delete(id);
+                    }
                     this.getUsers();
                     this.formFlag = false;
                 }
@@ -86,8 +97,10 @@ export class UserComponent implements OnInit{
                     this.formFlag = true;
                 }else{
                     this.curUser = user;
-                    this.data.getUsers();
                     this.getUsers();
+                    if(this.data.getColumn('users',user.id)){
+                        this.data.setUser(user);
+                    }
                     this.formFlag = false;
                     this.modFlag = false;
                 }

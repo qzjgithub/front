@@ -20,11 +20,21 @@ var UserComponent = (function () {
         this.modFlag = false;
     }
     UserComponent.prototype.ngOnInit = function () {
+        this.users = [];
         this.getUsers();
+        console.log(this.users);
     };
     UserComponent.prototype.getUsers = function () {
         var _this = this;
-        this.userService.getUsers().then(function (users) { return _this.users = users; });
+        this.userService.getUsers().then(function (users) {
+            _this.users = [];
+            users.forEach(function (user) {
+                _this.data.setUserById(user.create_user)
+                    .then(function (u) {
+                    _this.users.push(user);
+                });
+            });
+        });
     };
     UserComponent.prototype.addUser = function (user) {
         var _this = this;
@@ -35,7 +45,6 @@ var UserComponent = (function () {
             }
             else {
                 _this.curUser = user;
-                _this.data.getUsers();
                 _this.getUsers();
                 _this.formFlag = false;
             }
@@ -61,7 +70,9 @@ var UserComponent = (function () {
                 alert(user['err']);
             }
             else {
-                _this.data.getUsers();
+                if (_this.data.getColumn('users', id)) {
+                    _this.data.users.delete(id);
+                }
                 _this.getUsers();
                 _this.formFlag = false;
             }
@@ -79,8 +90,10 @@ var UserComponent = (function () {
             }
             else {
                 _this.curUser = user;
-                _this.data.getUsers();
                 _this.getUsers();
+                if (_this.data.getColumn('users', user.id)) {
+                    _this.data.setUser(user);
+                }
                 _this.formFlag = false;
                 _this.modFlag = false;
             }

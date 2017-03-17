@@ -2,6 +2,8 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Data} from "../data";
 import {ModuleService} from "./module.service";
 import {Module} from "./module";
+import {User} from "../user/user";
+import {UserService} from "../user/user.service";
 
 @Component({
     moduleId: module.id,
@@ -12,36 +14,54 @@ import {Module} from "./module";
 })
 export class ModuleComponent implements OnInit{
 
+    users:User[];
     modules:Module[];
     curModule:Module;
     formFlag:boolean;
     modFlag:boolean;
 
     constructor(
+        private userService:UserService,
         private moduleService:ModuleService,
         private data:Data
     ) {}
 
     ngOnInit(): void {
-        this.getModulesByModuleId();
+        this.getUsers();
+        this.getModulesByProjectId();
         this.formFlag = false;
         this.modFlag = false;
     }
 
-    getModulesByModuleId():void{
+    getUsers():void{
+        this.userService.getUsers()
+            .then(users => this.users = users);
+    }
+
+    getModulesByProjectId():void{
         this.moduleService.getModulesByProjectId(this.data.curProject._id)
-            .then(modules => this.modules = modules);
+            .then(modules => {
+                this.modules = []
+                modules.forEach(module => {
+                    this.data.setUserById(module.create_user)
+                        .then(u => {
+                            this.data.setUserById(module.principal)
+                                .then(u => {
+                                    this.modules.push(module);
+                                });
+                        });
+                });
+            });
     }
 
     addModule(module:Module): void{
         this.moduleService.create(module)
             .then(module => {
-                console.log(module);
                 if(module['err']){
                     this.formFlag = true;
                 }else{
                     this.curModule = module;
-                    this.getModulesByModuleId();
+                    this.getModulesByProjectId();
                     this.formFlag = false;
                 }
             })
@@ -63,7 +83,48 @@ export class ModuleComponent implements OnInit{
     }
 
     updateModule(module):void{
+        this.moduleService.update(module)
+            .then(module => {
+                if(module['err']){
+                    this.formFlag = true;
+                }else{
+                    this.curModule = module;
+                    this.getModulesByProjectId();
+                    this.formFlag = false;
+                    this.modFlag = false;
+                }
+            })
+    }
 
+    updateClick(module):void{
+        this.formFlag = true;
+        this.modFlag = true;
+        this.curModule = new Module(
+            module._id,
+            module.name,
+            module.create_time,
+            module.create_user,
+            module.principal,
+            module.path,
+            module.description,
+            module.project
+        );
+    }
+
+    deleteModule(id):void{
+        this.moduleService.delete(id)
+            .then(module => {
+                if(module['err']){
+                    alert(module['err']);
+                }else{
+                    this.getModulesByProjectId();
+                    this.formFlag = false;
+                }
+            })
+    }
+
+    deleteClick(id):void{
+        this.deleteModule(id);
     }
 }
 

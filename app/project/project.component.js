@@ -22,13 +22,23 @@ var ProjectComponent = (function () {
         this.modFlag = false;
     }
     ProjectComponent.prototype.ngOnInit = function () {
-        this.data.getProjects();
         this.getUsers();
         this.getProjects();
     };
     ProjectComponent.prototype.getProjects = function () {
         var _this = this;
-        this.projectService.getProjects().then(function (projects) { return _this.projects = projects; });
+        this.projectService.getProjects().then(function (projects) {
+            _this.projects = [];
+            projects.forEach(function (project) {
+                _this.data.setUserById(project.create_user)
+                    .then(function (u) {
+                    _this.data.setUserById(project.principal)
+                        .then(function (u) {
+                        _this.projects.push(project);
+                    });
+                });
+            });
+        });
     };
     ProjectComponent.prototype.getUsers = function () {
         var _this = this;
@@ -101,6 +111,7 @@ var ProjectComponent = (function () {
     ProjectComponent.prototype.detailClick = function (project) {
         this.data.current = "module";
         this.data.curProject = project;
+        this.data.setProject(this.data.curProject);
     };
     return ProjectComponent;
 }());
