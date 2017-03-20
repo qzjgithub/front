@@ -51,7 +51,7 @@ router.put('/', function (req, res) {
         } else if (modul) {
             res.json(modul);
         }else{
-            res.json({err:"不存在此用户！"});
+            res.json({err:"不存在此模块！"});
         }
     });
 });
