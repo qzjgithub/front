@@ -31,7 +31,7 @@ AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         styleUrls: ['app/app.component.css'],
-        template: "\n  <h1>{{title}}</h1>\n  <nav>\n    <a *ngFor=\"let module of data.modules\" href=\"#\" (click)=\"goModule(module.value)\">\n    {{module.text}}\n    </a>\n  </nav>\n  <dashboard *ngIf=\"data.current=='dashboard'\"></dashboard>\n  <user *ngIf=\"data.current=='user'\"></user>\n  <!--<role *ngIf=\"current=='role'\"></role>-->\n  <project *ngIf=\"data.current=='project'\"></project>\n  <module *ngIf=\"data.current=='module'\"></module>\n",
+        template: "\n  <h1>{{title}}</h1>\n  <nav>\n    <a *ngFor=\"let module of data.modules\" href=\"#\" (click)=\"goModule(module.value)\">\n    {{module.text}}\n    </a>\n  </nav>\n  <dashboard *ngIf=\"data.current=='dashboard'\"></dashboard>\n  <user *ngIf=\"data.current=='user'\"></user>\n  <!--<role *ngIf=\"current=='role'\"></role>-->\n  <project *ngIf=\"data.current=='project'\"></project>\n  <module *ngIf=\"data.current=='module'\"></module>\n  <intface *ngIf=\"data.current=='intface'\"></intface>\n",
     }),
     __metadata("design:paramtypes", [data_1.Data])
 ], AppComponent);

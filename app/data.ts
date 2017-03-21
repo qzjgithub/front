@@ -5,6 +5,8 @@ import {User} from "./user/user";
 import {Project} from "./project/project";
 import {RoleService} from "./role/role.service";
 import {Role} from "./role/role";
+import {Module} from "./module/module";
+import {ModuleService} from "./module/module.service";
 /**
  * Created by a0027 on 2017/3/14.
  */
@@ -16,11 +18,15 @@ export class Data{
     roles:Map<string,Role>;
     users:Map<string,User>;
     projects:Map<string,Project>;
+    moduls:Map<string,Module>;
     logUser:User;
     curProject:Project;
+    curModul:Module;
+    intfrom:boolean;
 
 
     constructor(
+        private modulService:ModuleService,
         private projectService:ProjectService,
         private userService:UserService,
         private roleService:RoleService
@@ -36,8 +42,11 @@ export class Data{
         this.roles = new Map<string,Role>();
         this.users = new Map<string,User>();
         this.projects = new Map<string,Project>();
+        this.moduls = new Map<string,Module>();
         this.logUser = JSON.parse(window.sessionStorage.getItem('user')) as User;
         this.curProject = new Project('','',new Date(),'','','','','');
+        this.curModul = new Module('','',new Date(),'','','','','');
+        this.intfrom = true;
     }
 
     setUserById(id):Promise<User>{
@@ -72,6 +81,23 @@ export class Data{
 
     setProject(project):void{
         this.projects.set(project._id,project);
+    }
+
+    setModulById(id):Promise<Module>{
+        var u = this.moduls.get(id);
+        if(id=='default'||u){
+            return new Promise<User>(resolve => resolve.call(this)).then(() => u);
+        }else{
+            return this.modulService.getModulById(id)
+                .then(u => {
+                    this.setUser(u);
+                    return u;
+                });
+        }
+    }
+
+    setModule(modul):void{
+        this.moduls.set(modul._id,modul);
     }
 
     getRoles(){

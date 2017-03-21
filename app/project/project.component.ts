@@ -131,5 +131,12 @@ export class ProjectComponent implements OnInit{
         this.data.curProject = project;
         this.data.setProject(this.data.curProject);
     }
+
+    intfaceClick(project):void{
+        this.data.current = "intface";
+        this.data.intfrom = true;
+        this.data.curProject = project;
+        this.data.setProject(this.data.curProject);
+    }
 }
 

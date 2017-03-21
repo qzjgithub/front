@@ -126,5 +126,12 @@ export class ModuleComponent implements OnInit{
     deleteClick(id):void{
         this.deleteModule(id);
     }
+
+    detailClick(module):void{
+        this.data.current = "intface";
+        this.data.intfrom = false;
+        this.data.curModul = module;
+        this.data.setModule(this.data.curModul);
+    }
 }
 

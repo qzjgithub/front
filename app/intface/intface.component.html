@@ -1,0 +1,107 @@
+<div>
+    <h1><a (click)="data.current=data.intfrom?'project':'module'"><</a>{{data[data.intfrom?'curProject':'curModul'].name}}</h1>
+    <dl *ngIf="data.intfrom">
+        <dt>ID</dt>
+        <dd>{{data.curProject._id}}</dd>
+        <dt>项目名</dt>
+        <dd>{{data.curProject.name}}</dd>
+        <dt>创建时间</dt>
+        <dd>{{data.curProject.create_time}}</dd>
+        <dt>创建人</dt>
+        <dd>{{data.getValue('users',data.curProject.create_user,'name')}}</dd>
+        <dt>负责人</dt>
+        <dd>{{data.getValue('users',data.curProject.principal,'name')}}</dd>
+        <dt>路径</dt>
+        <dd>{{data.curProject.path}}</dd>
+        <dt>端口</dt>
+        <dd>{{data.curProject.port}}</dd>
+        <dt>描述</dt>
+        <dd>{{data.curProject.description}}</dd>
+    </dl>
+    <dl *ngIf="!data.intfrom">
+        <dt>ID</dt>
+        <dd>{{data.curModul._id}}</dd>
+        <dt>所属项目</dt>
+        <dd>{{data.getValue('projects',data.curModul.project,'name')}}</dd>
+        <dt>模块名</dt>
+        <dd>{{data.curModul.name}}</dd>
+        <dt>创建时间</dt>
+        <dd>{{data.curModul.create_time}}</dd>
+        <dt>创建人</dt>
+        <dd>{{data.getValue('users',data.curModul.create_user,'name')}}</dd>
+        <dt>负责人</dt>
+        <dd>{{data.getValue('users',data.curModul.principal,'name')}}</dd>
+        <dt>路径</dt>
+        <dd>{{data.curModul.path}}</dd>
+        <dt>描述</dt>
+        <dd>{{data.curModul.description}}</dd>
+    </dl>
+    <section *ngIf="!formFlag" class="form">
+        <button (click)="addClick()">添加</button>
+        <ul>
+            <li>
+                <span>ID</span>
+                <span>所属项目</span>
+                <span>所属模块</span>
+                <span>创建时间</span>
+                <span>创建人</span>
+                <span>路径</span>
+                <span>完整路径</span>
+                <span>描述</span>
+                <span>操作</span>
+            </li>
+            <li *ngFor="let intface of intfaces">
+                <span>{{intface._id}}</span>
+                <span>{{data.getValue('projects',intface.project,'name')}}</span>
+                <span>{{intface.modul=='root'?'root':data.getValue('moduls',intface.modul,'name')}}</span>
+                <span>{{intface.create_time}}</span>
+                <span>{{data.getValue('users',intface.create_user,'name')}}</span>
+                <span>{{intface.path}}</span>
+                <span>{{intface.full_path}}</span>
+                <span>{{intface.description}}</span>
+                <a (click)="updateClick(intface)">修改</a>
+                <a (click)="deleteClick(intface._id)">删除</a>
+            </li>
+        </ul>
+    </section>
+    <section *ngIf="formFlag">
+        <ul>
+            <li>
+                <label>所属项目</label>
+                <input required
+                       name="project"
+                       [(ngModel)]="curIntface.project" type="hidden">
+                <input [value]="data.getValue('projects',curIntface.project,'name')" disabled>
+            </li>
+            <li>
+                <label>所属模块</label>
+                <select [(ngModel)]="curIntface.modul" name="modul" [disabled]="!data.intfrom">
+                    <option *ngFor="let modul of this.moduls" [value]="modul._id">
+                        {{modul.name}}
+                    </option>
+                </select>
+            </li>
+            <li>
+                <label>创建人</label>
+                <input type="hidden"
+                       [(ngModel)]="curIntface.create_user"
+                       name="create_user">
+                <input disabled [value]="data.getValue('users',curIntface.create_user,'name')">
+            </li>
+            <li>
+                <label>路径</label>
+                <input required
+                       name="path"
+                       [(ngModel)]="curIntface.path">
+            </li>
+            <li>
+                <label>描述</label>
+                <textarea [(ngModel)]="curIntface.description" name="description"></textarea>
+            </li>
+        </ul>
+        <footer>
+            <button (click)="saveClick()">保存</button>
+            <button (click)="cancelClick()">取消</button>
+        </footer>
+    </section>
+</div>

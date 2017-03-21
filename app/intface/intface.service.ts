@@ -1,39 +1,42 @@
+/**
+ * Created by a0027 on 2017/3/20.
+ */
 import {Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
-import {Module} from './module';
+import {Intface} from './intface';
 @Injectable()
-export class ModuleService{
-    private moduleUrl = '/modul';
+export class IntfaceService{
+    private intfaceUrl = '/intface';
     private headers = new Headers({'Content-Type':'application/json'});
 
     constructor(private http: Http){}
 
-    getModulesByProjectId(id:string):Promise<Module[]>{
-        return this.http.get(this.moduleUrl+'/project='+id)
+    getIntfacesByProjectId(id:string):Promise<Intface[]>{
+        return this.http.get(this.intfaceUrl+'/project='+id)
             .toPromise()
-            .then(response => response.json() as Module[])
+            .then(response => response.json() as Intface[])
             .catch (this.handleError);
     }
 
-    getModulById(id:string):Promise<Module>{
-        return this.http.get(this.moduleUrl+'/'+id)
+    getIntfacesByModulId(id:string):Promise<Intface[]>{
+        return this.http.get(this.intfaceUrl+'/modul='+id)
             .toPromise()
-            .then(response => response.json() as Module)
+            .then(response => response.json() as Intface[])
             .catch (this.handleError);
     }
 
-    create( module: Module) {
+    create( intface: Intface) {
         return this.http
-            .post(this.moduleUrl,JSON.stringify( module), {headers: this.headers})
+            .post(this.intfaceUrl,JSON.stringify( intface), {headers: this.headers})
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
     }
 
-    update( module: Module) {
+    update( intface: Intface) {
         return this.http
-            .put(this.moduleUrl,JSON.stringify( module), {headers: this.headers})
+            .put(this.intfaceUrl,JSON.stringify( intface ), {headers: this.headers})
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
@@ -41,7 +44,7 @@ export class ModuleService{
 
     delete(id:string){
         return this.http
-            .delete(this.moduleUrl+'/'+id)
+            .delete(this.intfaceUrl+'/'+id)
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

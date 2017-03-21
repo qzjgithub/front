@@ -9,7 +9,7 @@ router.param('id',function(req,res,next,id){
 
 router.get('/:id', function(req, res, next) {
     var id = req.params.id,
-        arr = id.substring('='),
+        arr = id.split('='),
         option = {};
     option[arr[0]] = arr[1];
     IntfaceModel.find(option,function(err,intface){
@@ -26,7 +26,7 @@ router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
     var createIntface = new IntfaceModel(req.body);
-    IntfaceModel.findOne({path:u.path}, function (err, intface) {
+    IntfaceModel.findOne({path:u.path,project:u.project,modul:u.modul}, function (err, intface) {
         if (err){
             res.json({err:err});
         } else if (intface) {

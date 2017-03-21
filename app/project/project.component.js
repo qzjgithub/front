@@ -113,6 +113,12 @@ var ProjectComponent = (function () {
         this.data.curProject = project;
         this.data.setProject(this.data.curProject);
     };
+    ProjectComponent.prototype.intfaceClick = function (project) {
+        this.data.current = "intface";
+        this.data.intfrom = true;
+        this.data.curProject = project;
+        this.data.setProject(this.data.curProject);
+    };
     return ProjectComponent;
 }());
 ProjectComponent = __decorate([

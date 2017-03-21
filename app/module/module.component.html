@@ -33,7 +33,7 @@
             </li>
             <li *ngFor="let module of modules">
                 <span>{{module._id}}</span>
-                <span>{{module.name}}</span>
+                <span (click)="detailClick(module)" class="link">{{module.name}}</span>
                 <span>{{module.create_time}}</span>
                 <span>{{data.getValue('users',module.create_user,'name')}}</span>
                 <span>{{data.getValue('users',module.principal,'name')}}</span>

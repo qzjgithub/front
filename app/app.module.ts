@@ -18,6 +18,8 @@ import {ProjectService} from "./project/project.service";
 import {Data} from "./data";
 import {ModuleComponent} from "./module/module.component";
 import {ModuleService} from "./module/module.service";
+import {IntfaceComponent} from "./intface/intface.component";
+import {IntfaceService} from "./intface/intface.service";
 @NgModule({
     imports:      [
         BrowserModule ,
@@ -31,7 +33,8 @@ import {ModuleService} from "./module/module.service";
         UserComponent,
         RoleComponent,
         ProjectComponent,
-        ModuleComponent
+        ModuleComponent,
+        IntfaceComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [
@@ -39,6 +42,7 @@ import {ModuleService} from "./module/module.service";
         UserService,
         ProjectService,
         ModuleService,
+        IntfaceService,
         Data
     ],
 

@@ -40,8 +40,9 @@ router.post('/', function (req, res) {
             createProject.save(function (err, project) {
                 if (err) {
                     res.json({err:err});
+                }else{
+                    res.json(project);
                 }
-                res.json(project);
             });
         }
     });

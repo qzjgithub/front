@@ -12,7 +12,7 @@ router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
     var createModul = new ModulModel(req.body);
-    ModulModel.findOne({name:u.name,modul:u.modul}, function (err, modul) {
+    ModulModel.findOne({name:u.name,project:u.project}, function (err, modul) {
         if (err){
             res.json({err:err});
         } else if (modul) {
@@ -30,8 +30,14 @@ router.post('/', function (req, res) {
 
 /* GET users listing. */
 router.get('/:id', function(req, res, next) {
-    var id = req.params.id;
-    ModulModel.find({project:id},function(err,modul){
+    var id = req.params.id,
+        arr = id.split('='),
+        option = {};
+    console.log(id);
+    console.log(arr);
+    option[arr.length>1?'project':'_id'] = arr[arr.length-1];
+    console.log(option);
+    ModulModel.find(option,function(err,modul){
         if (err){
             res.json({err:err});
         }else if (modul) {
