@@ -24,6 +24,8 @@ var module_component_1 = require("./module/module.component");
 var module_service_1 = require("./module/module.service");
 var intface_component_1 = require("./intface/intface.component");
 var intface_service_1 = require("./intface/intface.service");
+var intdata_component_1 = require("./intdata/intdata.component");
+var intdata_service_1 = require("./intdata/intdata.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -43,7 +45,8 @@ AppModule = __decorate([
             role_component_1.RoleComponent,
             project_component_1.ProjectComponent,
             module_component_1.ModuleComponent,
-            intface_component_1.IntfaceComponent
+            intface_component_1.IntfaceComponent,
+            intdata_component_1.IntdataComponent
         ],
         bootstrap: [app_component_1.AppComponent],
         providers: [
@@ -52,6 +55,7 @@ AppModule = __decorate([
             project_service_1.ProjectService,
             module_service_1.ModuleService,
             intface_service_1.IntfaceService,
+            intdata_service_1.IntdataService,
             data_1.Data
         ],
     })

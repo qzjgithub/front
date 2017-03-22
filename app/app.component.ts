@@ -16,6 +16,7 @@ import {Data} from "./data";
   <project *ngIf="data.current=='project'"></project>
   <module *ngIf="data.current=='module'"></module>
   <intface *ngIf="data.current=='intface'"></intface>
+  <intdata *ngIf="data.current=='intdata'"></intdata>
 `,
 })
 export class AppComponent implements OnInit{

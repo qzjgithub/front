@@ -119,6 +119,12 @@ var ProjectComponent = (function () {
         this.data.curProject = project;
         this.data.setProject(this.data.curProject);
     };
+    ProjectComponent.prototype.startProject = function (project) {
+        this.projectService.start(project);
+    };
+    ProjectComponent.prototype.startClick = function (project) {
+        this.startProject(project);
+    };
     return ProjectComponent;
 }());
 ProjectComponent = __decorate([

@@ -7,6 +7,7 @@ import {RoleService} from "./role/role.service";
 import {Role} from "./role/role";
 import {Module} from "./module/module";
 import {ModuleService} from "./module/module.service";
+import {Intface} from "./intface/intface";
 /**
  * Created by a0027 on 2017/3/14.
  */
@@ -19,9 +20,11 @@ export class Data{
     users:Map<string,User>;
     projects:Map<string,Project>;
     moduls:Map<string,Module>;
+    intfaces:Map<string,Intface>;
     logUser:User;
     curProject:Project;
     curModul:Module;
+    curIntface:Intface;
     intfrom:boolean;
 
 
@@ -43,6 +46,7 @@ export class Data{
         this.users = new Map<string,User>();
         this.projects = new Map<string,Project>();
         this.moduls = new Map<string,Module>();
+        this.intfaces = new Map<string,Intface>();
         this.logUser = JSON.parse(window.sessionStorage.getItem('user')) as User;
         this.curProject = new Project('','',new Date(),'','','','','');
         this.curModul = new Module('','',new Date(),'','','','','');

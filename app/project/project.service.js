@@ -52,6 +52,12 @@ var ProjectService = (function () {
             .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    ProjectService.prototype.start = function (project) {
+        this.http.put(this.projectUrl + '/start', JSON.stringify(project), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     ProjectService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

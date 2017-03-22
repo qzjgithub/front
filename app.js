@@ -15,6 +15,7 @@ var role = require('./routes/role');
 var project = require('./routes/project');
 var modul = require('./routes/modul');
 var intface = require('./routes/intface');
+var intdata = require('./routes/intdata');
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/role', role);
 app.use('/project', project);
 app.use('/modul', modul);
 app.use('/intface', intface);
+app.use('/intdata', intdata);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

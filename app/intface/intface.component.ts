@@ -142,5 +142,11 @@ export class IntfaceComponent implements OnInit{
     deleteClick(id):void{
         this.deleteIntface(id);
     }
+
+    detailClick(intface):void{
+        this.data.curIntface = intface;
+        this.data.intfaces.set(intface._id,intface);
+        this.data.current =  'intdata';
+    }
 }
 

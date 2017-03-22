@@ -1,0 +1,118 @@
+<div>
+    <h1><a (click)="data.current='intface'"><</a>{{data['curIntface'].full_path}}</h1>
+    <dl>
+        <dt>ID</dt>
+        <dd>{{data.curIntface._id}}</dd>
+        <dt>所属项目</dt>
+        <dd>{{data.getValue('projects',data.curIntface.project,'name')}}</dd>
+        <dt>所属模块</dt>
+        <dd>{{data.getValue('moduls',data.curIntface.modul,'name')}}</dd>
+        <dt>创建时间</dt>
+        <dd>{{data.curIntface.create_time}}</dd>
+        <dt>创建人</dt>
+        <dd>{{data.getValue('users',data.curIntface.create_user,'name')}}</dd>
+        <dt>路径</dt>
+        <dd>{{data.curIntface.path}}</dd>
+        <dt>完整路径</dt>
+        <dd>{{data.curIntface.full_path}}</dd>
+        <dt>描述</dt>
+        <dd>{{data.curIntface.description}}</dd>
+    </dl>
+    <section *ngIf="!formFlag" class="form">
+        <button (click)="addClick()">添加</button>
+        <ul>
+            <li>
+                <span>ID</span>
+                <span>创建时间</span>
+                <span>创建人</span>
+                <span>状态</span>
+                <span>状态码</span>
+                <span>类型</span>
+                <span>数据表</span>
+                <span>数据表操作</span>
+                <span>文本</span>
+                <span>文件</span>
+                <span>描述</span>
+                <span>操作</span>
+            </li>
+            <li *ngFor="let intdata of intdatas">
+                <span>{{intdata._id}}</span>
+                <span>{{intdata.create_time}}</span>
+                <span>{{data.getValue('users',intdata.create_user,'name')}}</span>
+                <span>{{intdata.status}}</span>
+                <span>{{intdata.code}}</span>
+                <span>{{intdata.type}}</span>
+                <span>{{intdata.table}}</span>
+                <span>{{intdata.operate}}</span>
+                <span>{{intdata.text}}</span>
+                <span>{{intdata.file}}</span>
+                <span>{{intdata.description}}</span>
+                <a (click)="updateClick(intdata)">修改</a>
+                <a (click)="deleteClick(intdata._id)">删除</a>
+            </li>
+        </ul>
+    </section>
+    <section *ngIf="formFlag">
+        <ul>
+            <li>
+                <label>所属项目</label>
+                <input required
+                       name="intface"
+                       [(ngModel)]="curIntdata.intface" type="hidden">
+            </li>
+            <li>
+                <label>创建人</label>
+                <input type="hidden"
+                       [(ngModel)]="curIntdata.create_user"
+                       name="create_user">
+                <input disabled [value]="data.getValue('users',curIntdata.create_user,'name')">
+            </li>
+            <li>
+                <label>状态码</label>
+                <input required
+                       name="code"
+                       [(ngModel)]="curIntdata.code">
+            </li>
+            <li>
+                <label>类型</label>
+                <select [(ngModel)]="curIntdata.type" name="type">
+                    <option *ngFor="let type of types" [value]="type.value">
+                        {{type.text}}
+                    </option>
+                </select>
+            </li>
+            <li *ngIf="curIntdata.type=='text'">
+                <label>文本</label>
+                <textarea required
+                       name="text"
+                       [(ngModel)]="curIntdata.text"></textarea>
+            </li>
+            <li *ngIf="curIntdata.type=='file'">
+                <label>文件</label>
+                <input required
+                          name="file"
+                          [(ngModel)]="curIntdata.file">
+            </li>
+            <li *ngIf="curIntdata.type=='table'">
+                <label>数据表</label>
+                <input required
+                          name="table"
+                          [(ngModel)]="curIntdata.table">
+            </li>
+            <li *ngIf="curIntdata.type=='table'">
+                <label>数据表操作</label>
+                <input required
+                          name="operate"
+                          [(ngModel)]="curIntdata.operate">
+            </li>
+            <li>
+                <label>描述</label>
+                <textarea [(ngModel)]="curIntdata.description" name="description"></textarea>
+            </li>
+        </ul>
+        <footer>
+            <button (click)="saveClick()">保存</button>
+            <button (click)="cancelClick()">取消</button>
+        </footer>
+    </section>
+</div>

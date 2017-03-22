@@ -138,5 +138,13 @@ export class ProjectComponent implements OnInit{
         this.data.curProject = project;
         this.data.setProject(this.data.curProject);
     }
+
+    startProject(project){
+        this.projectService.start(project);
+    }
+
+    startClick(project):void{
+        this.startProject(project);
+    }
 }
 

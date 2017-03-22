@@ -49,6 +49,13 @@ export class ProjectService{
             .catch(this.handleError);
     }
 
+    start(project:Project){
+        this.http.put(this.projectUrl+'/start',JSON.stringify(project),{headers:this.headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
     private handleError(error:any):Promise<any>{
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
