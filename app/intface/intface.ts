@@ -8,6 +8,7 @@ export class Intface{
         public modul:string,
         public create_time:Date,
         public create_user:string,
+        public type:string,
         public path:string,
         public full_path:string,
         public description:string,

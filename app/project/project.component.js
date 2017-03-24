@@ -125,6 +125,12 @@ var ProjectComponent = (function () {
     ProjectComponent.prototype.startClick = function (project) {
         this.startProject(project);
     };
+    ProjectComponent.prototype.stopProject = function (project) {
+        this.projectService.stop(project);
+    };
+    ProjectComponent.prototype.stopClick = function (project) {
+        this.stopProject(project);
+    };
     return ProjectComponent;
 }());
 ProjectComponent = __decorate([

@@ -45,6 +45,7 @@
                 <span>所属模块</span>
                 <span>创建时间</span>
                 <span>创建人</span>
+                <span>请求类型</span>
                 <span>路径</span>
                 <span>完整路径</span>
                 <span>描述</span>
@@ -56,6 +57,7 @@
                 <span>{{intface.modul=='root'?'root':data.getValue('moduls',intface.modul,'name')}}</span>
                 <span>{{intface.create_time}}</span>
                 <span>{{data.getValue('users',intface.create_user,'name')}}</span>
+                <span>{{intface.type}}</span>
                 <span>{{intface.path}}</span>
                 <span>{{intface.full_path}}</span>
                 <span>{{intface.description}}</span>
@@ -88,6 +90,14 @@
                        [(ngModel)]="curIntface.create_user"
                        name="create_user">
                 <input disabled [value]="data.getValue('users',curIntface.create_user,'name')">
+            </li>
+            <li>
+                <label>请求类型</label>
+                <select [(ngModel)]="curIntface.type" name="type">
+                    <option *ngFor="let type of this.types" [value]="type.value">
+                        {{type.text}}
+                    </option>
+                </select>
             </li>
             <li>
                 <label>路径</label>

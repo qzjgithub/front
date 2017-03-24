@@ -19,6 +19,7 @@ export class IntfaceComponent implements OnInit{
 
     intfaces:Intface[];
     moduls:Module[];
+    types:Object[];
     curIntface:Intface;
     formFlag:boolean;
     modFlag:boolean;
@@ -36,6 +37,12 @@ export class IntfaceComponent implements OnInit{
                 modules.forEach(m => this.data.setModule(m));
             });
         this[this.data.intfrom?'getIntfacesByProjectId':'getIntfacesByModulId']();
+        this.types = [
+            {value:'GET',text:'GET'},
+            {value:'POST',text:'POST'},
+            {value:'PUT',text:'PUT'},
+            {value:'DELETE',text:'DELETE'},
+        ];
         this.formFlag = false;
         this.modFlag = false;
     }
@@ -83,7 +90,7 @@ export class IntfaceComponent implements OnInit{
 
     addClick(): void{
         this.formFlag = true;
-        this.curIntface = new Intface('',this.data.curProject._id,this.data.intfrom?'':this.data.curModul._id,new Date,this.data.logUser._id,'','','');
+        this.curIntface = new Intface('',this.data.curProject._id,this.data.intfrom?'':this.data.curModul._id,new Date,this.data.logUser._id,'GET','','','');
     }
 
     saveClick():void{
@@ -119,6 +126,7 @@ export class IntfaceComponent implements OnInit{
             intface.modul,
             intface.create_time,
             intface.create_user,
+            intface.type,
             intface.path,
             intface.full_path,
             intface.description,

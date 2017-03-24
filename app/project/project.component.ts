@@ -146,5 +146,13 @@ export class ProjectComponent implements OnInit{
     startClick(project):void{
         this.startProject(project);
     }
+
+    stopProject(project){
+        this.projectService.stop(project);
+    }
+
+    stopClick(project):void{
+        this.stopProject(project);
+    }
 }
 

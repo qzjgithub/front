@@ -26,11 +26,11 @@ router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
     var createIntface = new IntfaceModel(req.body);
-    IntfaceModel.findOne({path:u.path,project:u.project,modul:u.modul}, function (err, intface) {
+    IntfaceModel.findOne({path:u.path,project:u.project,modul:u.modul,type:u.type}, function (err, intface) {
         if (err){
             res.json({err:err});
         } else if (intface) {
-            res.json({err:"请求路径已存在！"});
+            res.json({err:"次类型的请求路径已存在！"});
         }else{
             createIntface.save(function (err, intface) {
                 if (err) {

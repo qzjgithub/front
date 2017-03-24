@@ -10,6 +10,7 @@ var schema = new Schema({
     modul:String,
     create_time:Date,
     create_user:String,
+    type:String,
     path:String,
     full_path:String,
     description:String,
