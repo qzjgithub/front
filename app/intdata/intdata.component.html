@@ -6,7 +6,7 @@
         <dt>所属项目</dt>
         <dd>{{data.getValue('projects',data.curIntface.project,'name')}}</dd>
         <dt>所属模块</dt>
-        <dd>{{data.getValue('moduls',data.curIntface.modul,'name')}}</dd>
+        <dd>{{data.curIntface.modul=='root'?'root':data.getValue('moduls',data.curIntface.modul,'name')}}</dd>
         <dt>创建时间</dt>
         <dd>{{data.curIntface.create_time}}</dd>
         <dt>创建人</dt>

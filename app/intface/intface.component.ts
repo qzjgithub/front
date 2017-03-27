@@ -76,6 +76,7 @@ export class IntfaceComponent implements OnInit{
     addIntface(intface:Intface): void{
         !intface.modul && (intface.modul = 'root');
         intface.full_path = this.data.curProject.path + (intface.modul=='root'?'':this.data.getValue('moduls',intface.modul,'path'))+intface.path;
+        intface.full_path = intface.full_path || '/';
         this.intfaceService.create(intface)
             .then(intface => {
                 if(intface['err']){
@@ -106,6 +107,7 @@ export class IntfaceComponent implements OnInit{
     updateIntface(intface):void{
         !intface.modul && (intface.modul = 'root');
         intface.full_path = this.data.curProject.path + (intface.modul=='root'?'':this.data.getValue('moduls',intface.modul,'path'))+intface.path;
+        intface.full_path = intface.full_path || '/';
         this.intfaceService.update(intface)
             .then(intface => {
                 if(intface['err']){

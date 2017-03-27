@@ -55,3 +55,5 @@ function route(pathname) {
 }
 
 exports.route = route;
+
+require('./models').Intdata.find({intface:'58d0d19a586a221a74314c81',code:200},function(err,intdata){console.log(intdata)})

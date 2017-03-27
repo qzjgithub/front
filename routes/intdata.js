@@ -25,7 +25,7 @@ router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
     var createIntdata = new IntdataModel(req.body);
-    IntdataModel.findOne({code:u.code}, function (err, intdata) {
+    IntdataModel.findOne({intface:u._id,code:u.code}, function (err, intdata) {
         if (err){
             res.json({err:err});
         } else if (intdata) {

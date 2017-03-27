@@ -83,14 +83,13 @@ router.put('/start',function(req,res){
 
     var s = server.start(router.route,p);
     servers[p._id] = s;
-    console.log(servers);
     res.send({'msg':'start success'});
 });
 
 router.put('/stop',function(req,res){
     var p = req.body;
     servers[p._id].close();
-    console.log(servers);
+    delete servers[p._id];
     res.send({'msg':'stop success'});
 });
 module.exports = router;

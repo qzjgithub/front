@@ -8,17 +8,20 @@ function start(route,p) {
         var pathname = url.parse(request.url).pathname;
         console.log("Request for " + pathname + " received.");
 
-        route(pathname);
+        route(request,response,p);
 
-        response.writeHead(200, {"Content-Type": "text/plain"});
+        /*response.writeHead(200, {"Content-Type": "text/plain"});
         response.write("Hello World");
-        response.end();
+        response.end();*/
     }
 
-    var server = http.createServer(onRequest);
-    server.listen(8888);
+    var s = http.createServer(onRequest);
+    s.on('close',function(){
+        console.log('server close');
+    })
+    s.listen(p.port);
     console.log("Server has started.");
-    return server;
+    return s;
 }
 
 exports.start = start;

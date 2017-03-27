@@ -26,7 +26,7 @@ router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
     var createIntface = new IntfaceModel(req.body);
-    IntfaceModel.findOne({path:u.path,project:u.project,modul:u.modul,type:u.type}, function (err, intface) {
+    IntfaceModel.findOne({full_path:u.full_path,project:u.project,modul:u.modul,type:u.type}, function (err, intface) {
         if (err){
             res.json({err:err});
         } else if (intface) {
