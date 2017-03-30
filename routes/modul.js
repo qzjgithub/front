@@ -11,7 +11,7 @@ router.param('id',function(req,res,next,id){
 router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
-    var createModul = new ModulModel(req.body);
+    var createModul = new ModulModel(u);
     ModulModel.findOne({name:u.name,project:u.project}, function (err, modul) {
         if (err){
             res.json({err:err});

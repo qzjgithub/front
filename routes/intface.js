@@ -25,7 +25,7 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
-    var createIntface = new IntfaceModel(req.body);
+    var createIntface = new IntfaceModel(u);
     IntfaceModel.findOne({full_path:u.full_path,project:u.project,modul:u.modul,type:u.type}, function (err, intface) {
         if (err){
             res.json({err:err});
@@ -44,7 +44,7 @@ router.post('/', function (req, res) {
 
 router.put('/', function (req, res) {
     var u = req.body;
-    var updateIntface = new IntfaceModel(req.body);
+    var updateIntface = new IntfaceModel(u);
     var options    = {upsert : true};
     IntfaceModel.update({_id:updateIntface._id},updateIntface,options , function (err, intface) {
         if (err){

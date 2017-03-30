@@ -51,7 +51,7 @@ router.post('/', function (req, res) {
 
 router.put('/', function (req, res) {
     var u = req.body;
-    var updateProject = new ProjectsModel(req.body);
+    var updateProject = new ProjectsModel(u);
     var options    = {upsert : true};
     ProjectsModel.update({_id:updateProject._id},updateProject,options , function (err, project) {
         if (err){

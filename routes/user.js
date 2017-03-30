@@ -33,7 +33,7 @@ router.get('/:id',function(req, res, next){
 router.post('/', function (req, res) {
   var u = req.body;
   delete u._id;
-  var createUser = new UsersModel(req.body);
+  var createUser = new UsersModel(u);
    UsersModel.findOne({name:req.body.name}, function (err, user) {
      if (err){
        res.json({err:err});

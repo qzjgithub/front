@@ -24,7 +24,7 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function (req, res) {
     var u = req.body;
     delete u._id;
-    var createIntdata = new IntdataModel(req.body);
+    var createIntdata = new IntdataModel(u);
     IntdataModel.findOne({intface:u._id,code:u.code}, function (err, intdata) {
         if (err){
             res.json({err:err});
